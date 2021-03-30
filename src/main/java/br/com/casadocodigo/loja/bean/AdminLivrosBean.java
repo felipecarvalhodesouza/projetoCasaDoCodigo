@@ -1,8 +1,11 @@
 package br.com.casadocodigo.loja.bean;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
 
+import br.com.casadocodigo.dao.LivroDao;
 import br.com.casadocodigo.loja.modelo.Livro;
 
 @Named
@@ -10,9 +13,13 @@ import br.com.casadocodigo.loja.modelo.Livro;
 public class AdminLivrosBean {
 
     private Livro livro = new Livro();
+    
+    @Inject
+    private LivroDao dao;
 
+    @Transactional
     public void salvar() {
-        System.out.println("Livro cadastrado: " + livro);
+    	dao.salvar(livro);
     }
 
     public Livro getLivro() {
